@@ -44,13 +44,46 @@ data = {
 
 df = pd.DataFrame(data)
 
-print("TOP rated movie:")
-highrate = df[df["rating"]==df["rating"].max()]
-print(highrate)
-print()
-print("MOst Viewed MOvie")
-mostview= df[df["views"]==df["views"].max()]
-print(mostview)
-print()
-genrewise=df.loc[df.groupby("genres")["rating"].idxmax()]
-print(genrewise[["genres","rating","Movie"]])
+
+
+while True:
+    print("Movie Analysis Using Pandas")
+    print("1.show All Movie")
+    print("2.Highest Rated Movie")
+    print("3.oldest Movie")
+    print("4.Newest Movie")
+    print("5.Most watched Movie")
+    print("6.show movie genre wise.")
+    print("7.Most popular Movie")
+    print("8.Exit")
+    choice = input("Enter the choice :")
+    print()
+    if choice == "1":
+        print(df)
+    elif choice =="2":
+        highrated=df[df["rating"]==df["rating"].max()]
+        print(highrated)
+    elif choice =="3":
+        oldest=df[df["release_year"]==df["release_year"].min()]
+        print(oldest)
+    elif choice=="4":
+        newest = df[df["release_year"]==df["release_year"].max()]
+        print(newest)
+    elif choice=="5":
+        mostwatched=df[df["views"]==df["views"].max()]
+        print(mostwatched)
+    elif choice =="6":
+        print(df.groupby("genres")["Movie"].apply(list))
+    elif choice =="7":
+        df["Popular"] = df["views"] * df["rating"]
+
+        popular = df.sort_values(by="Popular", ascending=False)
+
+        print(popular[["Movie", "Popular"]])
+        print(popular.head())
+    elif choice =="8":
+        print("Enjoy movie :) ")
+        break
+    else:
+        print("Invalid choice")
+    
